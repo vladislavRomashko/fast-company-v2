@@ -47,12 +47,13 @@ const EditForm = ({ id }) => {
         console.log(prof);
         const qual = getQualities(user.qualities);
         console.log(qual);
-        setUser((prev) => ({
-            ...prev,
-            profession: prof,
-            qualities: qual
-        }));
-        api.users.update(id, user).then((response) => console.log(response));
+        api.users
+            .update(id, {
+                ...user,
+                profession: prof,
+                qualities: qual
+            })
+            .then((response) => console.log(response));
         history.push(`/users/${id}`);
     };
 
@@ -84,9 +85,6 @@ const EditForm = ({ id }) => {
             [target.name]: target.value
         }));
     };
-    // const handleClick = () => {
-    //     history.push(`/users/${id}`);
-    // };
 
     return (
         <div className="container mt-5">
@@ -138,7 +136,6 @@ const EditForm = ({ id }) => {
                             <button
                                 type="submit"
                                 className="btn btn-primary w-100 mx-auto"
-                                // onClick={handleClick}
                             >
                                 Обновить
                             </button>
