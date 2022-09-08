@@ -1,22 +1,20 @@
 import React from "react";
-import { useParams, useHistory, Route } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import UserPage from "../components/page/userPage";
 import UsersListPage from "../components/page/usersListPage";
-import EditForm from "../components/ui/editForm";
+import EditUserPage from "../components/ui/editUserPage";
 const Users = () => {
     const params = useParams();
-    const history = useHistory();
-    const { userId } = params;
-    const { location } = history;
+    const { userId, edit } = params;
 
     return (
         <>
-            {location.pathname.includes("edit") ? (
-                <Route path="/users/:userId/edit">
-                    <EditForm id={userId} />
-                </Route>
-            ) : userId ? (
-                <UserPage userId={userId} />
+            {userId ? (
+                edit ? (
+                    <EditUserPage id={userId} />
+                ) : (
+                    <UserPage userId={userId} />
+                )
             ) : (
                 <UsersListPage />
             )}
