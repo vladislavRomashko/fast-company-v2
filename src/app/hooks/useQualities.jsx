@@ -18,6 +18,11 @@ export const QualityProvider = ({ children }) => {
         return id.map((id) => qualities.find((q) => q._id === id));
     };
 
+    function errorCatcher(error) {
+        const { message } = error.response.data;
+        setError(message);
+    }
+
     useEffect(() => {
         if (error !== null) {
             toast(error);
@@ -37,11 +42,6 @@ export const QualityProvider = ({ children }) => {
         };
         getQualities();
     }, []);
-
-    function errorCatcher(error) {
-        const { message } = error.response.data;
-        setError(message);
-    }
 
     return (
         <QualitiesContext.Provider value={{ isLoading, qualities, getQuality }}>
